@@ -1,7 +1,8 @@
-stage: 'commit'
+stage: 'Checkout'
 node('master') {
   git url: 'https://github.com/jenkinsci/parallel-test-executor-plugin-sample.git'
   archive 'pom.xml, src/'
+  stage 'Build'
 }
 def splits = splitTests([$class: 'CountDrivenParallelism', size: 2])
 def branches = [:]
