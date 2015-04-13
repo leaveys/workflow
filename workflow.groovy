@@ -1,8 +1,16 @@
-stage: 'Checkout'
+stage 'Checkout'
+node {
+  svn 'https://github.com/leaveys/workflow.git'
+  stage 'Build'
+  sh 'make all'
+  stage 'Test'
+  sh 'make test'
+}
+
+stage: 'Commit'
 node('master') {
   git url: 'https://github.com/jenkinsci/parallel-test-executor-plugin-sample.git'
   archive 'pom.xml, src/'
-  stage 'Build'
 }
 def splits = splitTests([$class: 'CountDrivenParallelism', size: 2])
 def branches = [:]
