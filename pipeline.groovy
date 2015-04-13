@@ -1,4 +1,4 @@
-appcodeRepoUrl = 'https://github.com/leaveys/workflow'
+appcodeRepoUrl = 'https://github.com/leaveys/workflow.git'
 
 notificationEmailAddress = ''
 notificationEmailSubjectTemplate = '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!'
@@ -96,7 +96,7 @@ job(type: Maven) {
     }
   }
 
-  goals('clean verify')
+  goals('-B -Dmaven.test.failure.ignore test')
 
     //downstreamParameterized {
     //  trigger ('acceptance-1', 'SUCCESS'){
