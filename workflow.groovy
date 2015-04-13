@@ -2,6 +2,7 @@ stage 'commit'
 node('master') {
   git url: 'https://github.com/leaveys/workflow.git'
   archive 'pom.xml, src/'
+  //comment
 }
 def splits = splitTests([$class: 'CountDrivenParallelism', size: 2])
 def branches = [:]
