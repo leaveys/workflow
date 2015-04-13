@@ -98,26 +98,11 @@ job(type: Maven) {
 
   goals('clean verify')
 
-    downstreamParameterized {
-      trigger ('acceptance-1', 'SUCCESS'){
-        currentBuild()
-      }
-    }
-  }
-}
-
-jobName = 'acceptance-1'
-job() {
-  name jobName
-
-  logRotator(-1, 5, -1, 5)
-
-  deliveryPipelineConfiguration('acceptance', jobName)
-  blockOnDownstreamProjects()
-
-  wrappers {
-    colorizeOutput()
-  }
+    //downstreamParameterized {
+    //  trigger ('acceptance-1', 'SUCCESS'){
+    //    currentBuild()
+    //  }
+    //}
 }
 
 view(type: DeliveryPipelineView) {
