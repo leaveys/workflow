@@ -1,13 +1,4 @@
-stage 'Checkout'
-node {
-  svn 'https://github.com/leaveys/workflow.git'
-  stage 'Build'
-  sh 'make all'
-  stage 'Test'
-  sh 'make test'
-}
-
-stage: 'Commit'
+stage 'commit'
 node('master') {
   git url: 'https://github.com/jenkinsci/parallel-test-executor-plugin-sample.git'
   archive 'pom.xml, src/'
@@ -27,9 +18,3 @@ for (int i = 0; i < splits.size(); i++) {
   }
 }
 parallel branches
-
-stage 'Acceptance'
-node('master') {
-  git url: 'https://github.com/jenkinsci/parallel-test-executor-plugin-sample.git'
-  archive 'pom.xml, src/'
-}
