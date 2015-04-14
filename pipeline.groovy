@@ -98,6 +98,47 @@ job(type: Maven) {
 
   goals('-B -Dmaven.test.failure.ignore test')
 
+    downstreamParameterized {
+      trigger ('acceptance', 'ALWAYS'){
+        currentBuild()
+      }
+    }
+}
+
+jobName = 'workflow-job'
+job() {
+  name jobName
+
+  parameters {
+    stringParam('APPCODE_COMMIT_HASH',
+        'master',
+        'The commit hash or branch head to run the commit actions/build against.')
+  }
+
+  //logRotator(daysToKeepInt: -1, numToKeepInt: 5, artifactDaysToKeepInt: -1, artifactNumToKeepInt: 5)
+  logRotator(-1, 5, -1, 5)
+
+  deliveryPipelineConfiguration('acceptance', jobName)
+  blockOnDownstreamProjects()
+
+  wrappers {
+    colorizeOutput()
+  }
+
+  multiscm {
+    git {
+      remote {
+        url(appcodeRepoUrl)
+      }
+      branch('$APPCODE_COMMIT_HASH')
+      configure { node ->
+        node / skipTag << 'true'
+      }
+    }
+  }
+
+  goals('-B -Dmaven.test.failure.ignore test')
+
     //downstreamParameterized {
     //  trigger ('acceptance-1', 'SUCCESS'){
     //    currentBuild()
