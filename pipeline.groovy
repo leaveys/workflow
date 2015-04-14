@@ -118,7 +118,7 @@ job(type: Workflow) {
   definition {
         cps {
             script('workflow.groovy')
-            sandbox(boolean sandbox = true)
+            sandbox(true)
         }
     }
 
