@@ -97,12 +97,13 @@ job(type: Maven) {
   }
 
   goals('-B -Dmaven.test.failure.ignore test')
-
+  publishers {
     downstreamParameterized {
       trigger ('workflow-job', 'ALWAYS'){
         currentBuild()
       }
     }
+  }
 }
 
 jobName = 'workflow-job'
@@ -136,8 +137,6 @@ job() {
       }
     }
   }
-  
-  
 }
 
 view(type: DeliveryPipelineView) {
