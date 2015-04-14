@@ -99,7 +99,7 @@ job(type: Maven) {
   goals('-B -Dmaven.test.failure.ignore test')
 
     downstreamParameterized {
-      trigger ('acceptance', 'ALWAYS'){
+      trigger ('workflow-job', 'ALWAYS'){
         currentBuild()
       }
     }
@@ -136,14 +136,8 @@ job() {
       }
     }
   }
-
-  goals('-B -Dmaven.test.failure.ignore test')
-
-    //downstreamParameterized {
-    //  trigger ('acceptance-1', 'SUCCESS'){
-    //    currentBuild()
-    //  }
-    //}
+  
+  
 }
 
 view(type: DeliveryPipelineView) {
