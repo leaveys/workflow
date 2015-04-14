@@ -107,9 +107,9 @@ job(type: Maven) {
 }
 
 jobName = 'workflow-job'
-job() {
-  name jobName
-
+job(type: Workflow) {
+  name('workflow.groovy')
+  displayName('workflow-job')
   parameters {
     stringParam('APPCODE_COMMIT_HASH',
         'master',
