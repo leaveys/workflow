@@ -108,8 +108,8 @@ job(type: Maven) {
 
 jobName = 'workflow-job2'
 job(type: Workflow) {
-  name(jobName)
-  displayName(jobName)
+  name('workflow-job2')
+  displayName('workflow-job2')
   parameters {
     stringParam('APPCODE_COMMIT_HASH',
         'master',
